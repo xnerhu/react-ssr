@@ -1,33 +1,33 @@
 import * as React from 'react';
 
-import { IAppState} from '~/interfaces';  
+import { IAppState } from '~/interfaces';
 
 interface Props {
   scripts?: string[];
   state?: IAppState;
-  helmetContext?: any;
   styleElement?: any;
-  appState?: any;
   children?: any;
 }
 
-export const Html = ({ scripts, state, helmetContext, styleElement, children }: Props) => {
-  const { helmet } = helmetContext;
-
+export const Html = ({ scripts, state, styleElement, children }: Props) => {
   const appState = JSON.stringify(state || {});
 
   return (
-    <html lang="pl">
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {helmet.base.toComponent()}
-        {helmet.title.toComponent()}
-        {helmet.meta.toComponent()}
-        {helmet.link.toComponent()}
-        {helmet.script.toComponent()}
+        <meta name="keywords" content="a, b, c" />
+        <meta name="description" content="..." />
+        <meta name="author" content="..." />
+        <meta name="og:title" property="og:title" content="..." />
+        <meta name="og:description" property="og:description" content="..." />
+        <meta name="og:image" property="og:image" content="..." />
+        <meta property="og:url" content="..." />
+        <meta name="robots" content="index, follow" />
+        <title>react-ssr</title>
         {styleElement}
-        <script type="text/javascript" dangerouslySetInnerHTML={{__html: `window.__APP_STATE__=${appState}`}} />
+        <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `window.__APP_STATE__=${appState}` }} />
       </head>
       <body>
         <noscript>You need to enable JavaScript!</noscript>

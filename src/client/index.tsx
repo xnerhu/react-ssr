@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { hydrate } from 'react-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 
 import { StoreProvider } from '~/renderer/store';
@@ -14,9 +13,7 @@ declare const window: {
 hydrate((
   <StoreProvider data={window.__APP_STATE__}>
     <BrowserRouter>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
+      <App />
     </BrowserRouter>
   </StoreProvider>
 ), document.getElementById('app'));

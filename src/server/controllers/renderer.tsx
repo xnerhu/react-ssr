@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import { HelmetProvider } from 'react-helmet-async';
 import { StaticRouter } from 'react-router';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
@@ -16,7 +15,6 @@ const scripts = ['app.js', 'vendor.chunk.js'];
 const sheet = new ServerStyleSheet();
 
 router.get('*', (req, res, next) => {
-  const helmetContext = {};
   const routerContext = {};
 
   const appState: IAppState = {
@@ -28,17 +26,15 @@ router.get('*', (req, res, next) => {
   const content = renderToString(
     <StaticRouter location={req.baseUrl} context={routerContext}>
       <StyleSheetManager sheet={sheet.instance}>
-        <HelmetProvider context={helmetContext}>
-          <StoreProvider data={appState}>
-            <App />
-          </StoreProvider>
-        </HelmetProvider>
+        <StoreProvider data={appState}>
+          <App />
+        </StoreProvider>
       </StyleSheetManager>
     </StaticRouter>
   );
 
   const str = renderToString(
-    <Html scripts={scripts} helmetContext={helmetContext} styleElement={sheet.getStyleElement()} appState={appState}>
+    <Html scripts={scripts} styleElement={sheet.getStyleElement()} state={appState}>
       {content}
     </Html>
   );
