@@ -1,0 +1,51 @@
+import { Router } from 'express';
+import * as React from 'react';
+import { renderToString } from 'react-dom/server';
+import { HelmetProvider } from 'react-helmet-async';
+import { StaticRouter } from 'react-router';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+
+import { StoreProvider } from '~/renderer/store';
+import { IAppState } from '~/interfaces';
+import { Html } from '../components/HTML';
+import App from '~/renderer/components/App';
+
+const router = Router();
+
+const scripts = ['app.js', 'vendor.chunk.js'];
+const sheet = new ServerStyleSheet();
+
+router.get('*', (req, res, next) => {
+  const helmetContext = {};
+  const routerContext = {};
+
+  const appState: IAppState = {
+    theme: {
+      dark: true,
+    }
+  }
+
+  const content = renderToString(
+    <StaticRouter location={req.baseUrl} context={routerContext}>
+      <StyleSheetManager sheet={sheet.instance}>
+        <HelmetProvider context={helmetContext}>
+          <StoreProvider data={appState}>
+            <App />
+          </StoreProvider>
+        </HelmetProvider>
+      </StyleSheetManager>
+    </StaticRouter>
+  );
+
+  const str = renderToString(
+    <Html scripts={scripts} helmetContext={helmetContext} styleElement={sheet.getStyleElement()} appState={appState}>
+      {content}
+    </Html>
+  );
+
+  res.send(`<!doctype html>${str}`);
+
+  next();
+});
+
+export default router;
