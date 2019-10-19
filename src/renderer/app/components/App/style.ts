@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { h4, centerIcon } from '~/renderer/mixins';
 import { icons, transparency } from '~/renderer/constants';
-import { ITheme } from '~/renderer/interfaces';
+import { ITheme } from '~/interfaces';
 
 export const StyledApp = styled.div`
   width: 100vw;

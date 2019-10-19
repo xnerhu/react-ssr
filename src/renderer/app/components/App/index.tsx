@@ -4,14 +4,13 @@ import { Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-// import store from '~/renderer/store';
 import { Home } from '../Home';
 import { About } from '../About';
 import { Footer } from '../Footer';
 
-import { Style } from '~/renderer/style';
+import { useStore } from '~/renderer/app/store';
+import { Style } from '~/renderer/app/style';
 import { StyledApp, Link, Nav, Container, DarkThemeIcon } from './style';
-import { useStore } from '~/renderer/store';
 
 const GlobalStyle = createGlobalStyle`${Style}`;
 

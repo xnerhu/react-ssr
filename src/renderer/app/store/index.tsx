@@ -2,12 +2,18 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
+import { IAppState } from '~/interfaces';
+
 class Store {
   @observable
   public darkTheme = false;
 
-  constructor(test?: any) {
-    this.darkTheme = test;
+  constructor(state?: IAppState) {
+    if (state) {
+      const { theme } = state;
+
+      this.darkTheme = theme.dark;
+    }
   }
 }
 
@@ -17,7 +23,7 @@ export const createStore = (data: any) => () => {
 
 const StoreContext = React.createContext<Store>(null)
 
-export const StoreProvider = ({ data, children }: { data?: any, children: any }) => {
+export const StoreProvider = ({ data, children }: { data?: IAppState, children: any }) => {
   const store = useLocalStore(createStore(data));
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 }

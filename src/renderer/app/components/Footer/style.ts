@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { ITheme } from '~/renderer/interfaces';
+import { ITheme } from '~/interfaces';
 
 export const StyledFooter = styled.div`
   width: 100%;

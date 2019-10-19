@@ -2,9 +2,9 @@ import * as React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { StoreProvider } from '~/renderer/store';
+import { StoreProvider } from '~/renderer/app/store';
 import { IAppState } from '~/interfaces';
-import App from '~/renderer/components/App';
+import App from '~/renderer/app/components/App';
 
 declare const window: {
   __APP_STATE__: IAppState;

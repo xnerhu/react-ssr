@@ -4,10 +4,10 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
-import { StoreProvider } from '~/renderer/store';
+import { StoreProvider } from '~/renderer/app/store';
 import { IAppState } from '~/interfaces';
 import { Html } from '../components/HTML';
-import App from '~/renderer/components/App';
+import App from '~/renderer/app/components/App';
 
 const router = Router();
 

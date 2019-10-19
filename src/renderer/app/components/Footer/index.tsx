@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { useStore } from '~/renderer/store';
+import { useStore } from '~/renderer/app/store';
 import { StyledFooter } from './style';
 
 export const Footer = observer((props: any) => {

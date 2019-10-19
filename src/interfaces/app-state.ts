@@ -1,4 +1,4 @@
-import { ITheme } from '~/renderer/interfaces';
+import { ITheme } from './theme';
 
 export interface IAppState {
   theme?: ITheme;
