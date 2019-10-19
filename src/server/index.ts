@@ -1,9 +1,10 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as helmet from 'helmet';
 import chalk from 'chalk';
 import { config } from 'dotenv';
-import * as compression from 'compression';
 
 config();
 
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(compression());
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(controllers);
