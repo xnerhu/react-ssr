@@ -4,9 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { Home } from '../Home';
-import { About } from '../About';
 import { Footer } from '../Footer';
+import { RoutePage } from '~/renderer/components/RoutePage';
 
 import { useStore } from '~/renderer/app/store';
 import { Style } from '~/renderer/app/style';
@@ -32,8 +31,8 @@ const App = observer(() => {
         </Nav>
         <Container >
           <Switch>
-            <Route path="/about" component={About} />
-            <Route path="/" component={Home} />
+            <Route path="/about" component={RoutePage('About')} />
+            <Route path="/" component={RoutePage('Home')} />
           </Switch>
         </Container>
         <Footer />

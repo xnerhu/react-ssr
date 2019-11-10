@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const {
   getConfig,
@@ -21,7 +22,7 @@ if (dev) {
   );
 }
 
-const plugins = [];
+const plugins = [new LoadablePlugin()];
 
 if (stats) {
   plugins.push(new BundleAnalyzerPlugin());

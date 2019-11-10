@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import { resolve } from 'path';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { ChunkExtractor } from '@loadable/server';
 
 import { StoreProvider } from '~/renderer/app/store';
 import { IAppState } from '~/interfaces';
@@ -12,18 +14,17 @@ import App from '~/renderer/app/components/App';
 const router = Router();
 
 const scripts = ['app.js', 'vendor.chunk.js'];
-const sheet = new ServerStyleSheet();
+
+const statsFile = resolve('./build/client/static/loadable-stats.json')
 
 router.get('*', (req, res, next) => {
+  const sheet = new ServerStyleSheet();
   const routerContext = {};
+  const extractor = new ChunkExtractor({ statsFile, entrypoints: ["app"] });
 
-  const appState: IAppState = {
-    theme: {
-      dark: true,
-    }
-  }
+  const appState: IAppState = { theme: { dark: true } }
 
-  const content = renderToString(
+  const Content = extractor.collectChunks(
     <StaticRouter location={req.baseUrl} context={routerContext}>
       <StyleSheetManager sheet={sheet.instance}>
         <StoreProvider data={appState}>
@@ -33,9 +34,11 @@ router.get('*', (req, res, next) => {
     </StaticRouter>
   );
 
+  const html = renderToString(Content);
+
   const str = renderToString(
-    <Html scripts={scripts} styleElement={sheet.getStyleElement()} state={appState}>
-      {content}
+    <Html scripts={extractor.getScriptElements()} styleElement={sheet.getStyleElement()} state={appState}>
+      {html}
     </Html>
   );
 

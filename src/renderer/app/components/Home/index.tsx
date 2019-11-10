@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { PageTitle } from '../App/style';
 
-export const Home = () => {
+export default () => {
   return (
     <>
       <PageTitle>Home</PageTitle>

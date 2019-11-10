@@ -25,17 +25,7 @@ const config = {
     rules: [
       {
         test: /\.tsx|ts$/,
-        use: [
-          'cache-loader',
-          {
-            loader: 'ts-loader',
-            options: {
-              experimentalWatchApi: true,
-              transpileOnly: true,
-            },
-          },
-        ],
-
+        loader: 'babel-loader',
         include: INCLUDE,
       },
     ],

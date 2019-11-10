@@ -3,10 +3,10 @@ import * as React from 'react';
 import { IAppState } from '~/interfaces';
 
 interface Props {
-  scripts?: string[];
+  scripts?: React.ReactNode;
   state?: IAppState;
   styleElement?: any;
-  children?: any;
+  children?: string;
 }
 
 export const Html = ({ scripts, state, styleElement, children }: Props) => {
@@ -32,9 +32,7 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
       <body>
         <noscript>You need to enable JavaScript!</noscript>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-        {scripts.map(r => `/static/${r}`).map(src => (
-          <script key={src} src={src} type="text/javascript" async />
-        ))}
+        {scripts}
       </body>
     </html>
   );
